@@ -27,4 +27,18 @@ export class CountryService {
     )
 
   }
+
+  // const url = `${API_URL}/name/${query}`
+  searchByCountry(query: string){
+    query = query.toLowerCase();
+    return this.http.get<RESTCountry[]>(`${API_URL}/name/${query}`)
+    .pipe(
+      map( (restCountries) => CountryMapper.mapRestCountryItemsToCountryArray(restCountries)),
+      catchError(error => {
+        console.log('Error fetching ', error);
+        
+        return throwError(() => new Error(`No se pudo obtener países con ese query ${query}`))
+      })
+    )
+  }
 }

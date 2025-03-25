@@ -1,4 +1,18 @@
 <!-- search-input -->
-<country-search-input [placeholder]="'Buscar por país'" />
+<country-search-input
+	[placeholder]="'Buscar por país'"
+	(value)="query.set($event)"
+/>
 <!-- country-list -->
-<country-list [countries]="[]" />
+<!-- country-list -->
+@if (countryResource.error()) {
+	<h3>{{ countryResource.error() }}</h3>
+} 
+@if (countryResource.isLoading()) {
+	<div class="text-center mt-10">
+		<span class="loading loading-spinner loading-xl"></span>
+	</div>
+} 
+@if ( countryResource.hasValue()) {
+	<country-list [countries]="countryResource.value()" />
+}
