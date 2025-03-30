@@ -1,8 +1,19 @@
-<p
-	class="text-4xl text-center text-green-600 font-bold uppercase p-3 
-     border border-green-900 rounded-3xl cursor-pointer hover:bg-green-200"
->
-	country-page works!
-</p>
+<!--  -->
 
-<button class="mt-4 btn btn-outline btn-secondary">Secondary</button>
+@if(countryResource.error()){
+    <app-not-found />
+}
+
+<!--  -->
+
+@if(countryResource.isLoading()){
+    <div class="flex flex-col justify-center items-center">
+        <span class="loading loading-spinner loading-xl"></span>
+    </div>
+}
+
+<!--  -->
+
+@if (countryResource.hasValue()){
+    <country-information [country]="countryResource.value()!"/>
+}
